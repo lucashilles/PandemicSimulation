@@ -11,6 +11,9 @@ Faça você também a sua versão, crie uma issue indicando o repositório e ire
 Simulating an Epidemic - 3Blue1Brown
 https://www.youtube.com/watch?v=gxAaO2rsdIs
 
+Lightweight Random Number Generation
+https://docs.microsoft.com/en-us/archive/msdn-magazine/2016/august/test-run-lightweight-random-number-generation
+
 CanvasRenderingContext2D
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
 

@@ -6,27 +6,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulação de Contágio</title>
     <style>
-        #canvas {
-            background-color: black;
-            border: 2px solid rgb(131, 131, 131);
-        }
-
         html,
         body {
             height: 100%;
             text-align: center;
             background-color: black;
             font-family: Arial, Helvetica, sans-serif;
+            color: white;
         }
 
         a {
             color: #FFF;
         }
+
+        #canvas {
+            background-color: black;
+            border: 2px solid rgb(131, 131, 131);
+        }
+
+        #config {
+            margin: 5px auto;
+            padding: 10px;
+            width: 500px;
+            border: 1px solid #FFF;
+            box-sizing: border-box;
+        }
+
+        #config .row {
+            justify-content: space-between;
+        }
+
+        #graph {
+            background-color: #5fc1cf;
+            border: 2px solid rgb(131, 131, 131);
+        }
+
+        #label {
+            margin: 15px auto;
+            padding: 15px;
+            width: 500px;
+            border: 1px solid #FFF;
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .row p {
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        .indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+        }
+
+        .susceptible {
+            background-color: #5fc1cf;
+        }
+
+        .infected {
+            background-color: #f5644f;
+        }
+
+        .removed {
+            background-color: #505050;
+        }
+
+        .dead {
+            border: 1px solid #505050;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
 <body>
+    <form id="config">
+        <div class="row">
+            <label>
+                Quantity of people
+            </label>
+            <input type="text" id="peopleQuantity" pattern="(\d*\.)?\d+" value="100">
+        </div>
+        <div class="row">
+            <label>
+                Speed
+            </label>
+            <input type="text" id="speed" pattern="(\d*\.)?\d+" value="2">
+        </div>
+        <div class="row">
+            <label>
+                Person size
+            </label>
+            <input type="text" id="size" pattern="(\d*\.)?\d+" value="5">
+        </div>
+        <div class="row">
+            <label>
+                Probability of change in direction [0, 1[
+            </label>
+            <input type="text" id="probDirection" pattern="(\d*\.)?\d+" value="0.2">
+        </div>
+        <div class="row">
+            <label>
+                Probability of infection [0, 1[
+            </label>
+            <input type="text" id="probInfection" pattern="(\d*\.)?\d+" value="0.2">
+        </div>
+        <div class="row">
+            <label>
+                Probability of dead [0, 1[
+            </label>
+            <input type="text" id="probDead" pattern="(\d*\.)?\d+" value="0.2">
+        </div>
+        <div class="row">
+            <label>
+                Max turning angle (degres)
+            </label>
+            <input type="text" id="maxDirectionAngle" pattern="(\d*\.)?\d+" value="0.2">
+        </div>
+        <div class="row">
+            <label>
+                Infection time length (ms)
+            </label>
+            <input type="text" id="infectionTime" pattern="(\d*\.)?\d+" value="3000">
+        </div>
+        <div class="row">
+            <label>
+                Infection radius
+            </label>
+            <input type="text" id="infectionRadius" pattern="(\d*\.)?\d+" value="3">
+        </div>
+        <button id="configSubmit">Submit</button>
+    </form>
+
     <canvas width="500px" height="500px" id="canvas"></canvas><br>
+    <canvas width="500px" height="250px" id="graph"></canvas><br>
+
+    <div id="label">
+        <div class="row">
+            <div class="indicator susceptible"></div>
+            <p> Susceptible</p>
+        </div>
+        <div class="row">
+            <div class="indicator infected"></div>
+            <p> Infected</p>
+        </div>
+        <div class="row">
+            <div class="indicator removed"></div>
+            <p> Removed</p>
+        </div>
+        <div class="row">
+            <div class="indicator dead"></div>
+            <p> Dead</p>
+        </div>
+    </div>
+
     <a href="https://www.youtube.com/watch?v=ArcEYuyY01E" target="_blank">Simulação de Contágio - Video da live.</a>
 
     <script defer src="classes.js"></script>
